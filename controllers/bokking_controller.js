@@ -1,6 +1,7 @@
-const validator = require("../utils/validator");
-const systemConfig = require("../configs/system");
-const userModel = require("../models/Booking");
+const validator = require("../src/utils/validator");
+const jwt = require("../src/utils/jwt");
+const systemConfig = require("../src/configs/system");
+const userModel = require("../src/models/UserModel");
 
 const booking_controller = async function (req, res) {
   try {

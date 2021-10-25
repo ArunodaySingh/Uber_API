@@ -1,11 +1,12 @@
-const validator = require("../utils/validator");
-const jwt = require("../utils/jwt");
-const systemConfig = require("../configs/system");
-const userModel = require("../models/userModel");
+const validator = require("../src/utils/validator");
+const jwt = require("../src/utils/jwt");
+const systemConfig = require("../src/configs/system");
+const userModel = require("../src/models/UserModel");
 
 const registerUser = async function (req, res) {
   try {
     const requestBody = req.body;
+    console.log("i triggerd"+requestBody);
     if (!validator.isValidRequestBody(requestBody)) {
       res
         .status(400)

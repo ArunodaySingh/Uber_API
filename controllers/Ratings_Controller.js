@@ -1,6 +1,7 @@
-const validator = require("../utils/validator");
-const systemConfig = require("../configs/system");
-const userModel = require("../src/models/Rating");
+const validator = require("../src/utils/validator");
+const jwt = require("../src/utils/jwt");
+const systemConfig = require("../src/configs/system");
+const userModel = require("../src/models/UserModel");
 
 const Rating_Controller = async function (req, res) {
   try {

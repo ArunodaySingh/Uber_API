@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
-
-const { validator } = require('../utils')
-const { systemConfig } = require('../configs')
+const { validator } = require('../utils');
+const { systemConfig } = require('../configs');
 
 const riderSchema = new mongoose.Schema({
     riderId:{

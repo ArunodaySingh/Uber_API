@@ -5,7 +5,7 @@ const connectDB = async () => {
     try {
         //database Name
         const databaseName='ccDb';
-        const con = await mongoose.connect(`mongodb://127.0.0.1:27017/${databaseName}`, { 
+        const con = await mongoose.connect("", { 
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
@@ -16,4 +16,4 @@ const connectDB = async () => {
     }
 }
 
-export default connectDB
+export default connectDB;
