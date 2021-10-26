@@ -1,7 +1,7 @@
 const validator = require("../src/utils/validator");
 const jwt = require("../src/utils/jwt");
 const systemConfig = require("../src/configs/system");
-const userModel = require("../src/models/UserModel");
+const userModel = require("../src/models/DriverModel");
 
 const booking_controller = async function (req, res) {
   try {
@@ -151,4 +151,24 @@ res.status(201).send({ status: true, message: "Success", data: bookcab_data });
   }
 };
 
-module.exports = booking_controller;
+const getbookingdetails = async function (req, res) {
+  try{
+    
+    let a=req.params.id;
+    userModel.findOne({_id:a},function(err,result){
+      if(!err){
+        res.send(result);
+      }
+})
+  }
+  catch (error) {
+    res.status(500).send({ status: false, message: error.message });
+  }
+ 
+}
+
+module.exports = {
+  booking_controller,
+  getbookingdetails
+
+}

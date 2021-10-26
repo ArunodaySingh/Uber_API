@@ -64,4 +64,36 @@ res.status(201).send({ status: true, message: "Success", data: Vehcile_data });
   }
 };
 
-module.exports = Vehicle_Controller;
+const getvehicledetails = async function (req, res) {
+  try{ 
+    let a=req.params.id;
+    userModel.findOne({_id:a},function(err,result){
+      if(!err){
+        res.send(result);
+      }
+})
+  }
+  catch (error) {
+    res.status(500).send({ status: false, message: error.message });
+  }
+}
+
+const getallvehicledetails = async function (req, res) {
+  try{ 
+    let a=req.params.id;
+    userModel.find({},function(err,result){
+      if(!err){
+        res.send(result);
+      }
+})
+  }
+  catch (error) {
+    res.status(500).send({ status: false, message: error.message });
+  }
+}
+
+module.exports = {
+  Vehicle_Controller,
+  getvehicledetails,
+  getallvehicledetails
+}
