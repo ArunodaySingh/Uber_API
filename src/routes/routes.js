@@ -20,27 +20,24 @@ const walletController = require("../../controllers/wallet_controller");
 const userAuth = require("../middlewares/userAuth");
 
 // rider routes
-router.post("/riderregister", riderController.registerUser);
+router.post("/riderregister", riderController.registerUser); //donetesting
 router.post("/riderlogin", riderController.loginUser);
 
 // driver routes
-router.post("/driverregister", driverController.registerUser);
+router.post("/driverregister", driverController.registerUser); //donetesting
 router.post("/driverlogin", driverController.loginUser);
-
-//address routes
-router.post("/address", addressController);
 
 //booking routes
 router.post("/booking", bookingController);
 
 //cab routes
-router.post("/cab", cabController);
+router.post("/cab", cabController); //donetesting
 
 //document routes
-router.post("/document", documentController);
+router.post("/document", documentController); //donetesting
 
 //driver_Feedback routes
-router.post("/driverfeedback", driverFeedbackController);
+router.post("/driverfeedback", driverFeedbackController); //donetesting
 
 //driver_Status routes
 router.post("/driverstatus", driverStatusController);

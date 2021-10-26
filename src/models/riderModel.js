@@ -3,11 +3,11 @@ const { validator } = require('../utils');
 const { systemConfig } = require('../configs');
 
 const riderSchema = new mongoose.Schema({
-    riderId:{
-        type:Number,
-        required: true
+    title:{
+        type : String,
+        required:"Name is required",
+        
     },
-   
     name:{
         type : String,
         required:"Name is required",

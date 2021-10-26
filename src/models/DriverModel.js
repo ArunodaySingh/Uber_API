@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
+var ObjectId = require('mongodb').ObjectID;
 
 const { validator } = require('../utils')
 const { systemConfig } = require('../configs')
 
 const driverSchema = new mongoose.Schema({
-    driverId:{
-        type:Number,
-        required: true
-    },
    
     name:{
         type : String,

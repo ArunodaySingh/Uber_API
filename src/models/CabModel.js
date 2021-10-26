@@ -36,7 +36,7 @@ const cabSchema = new mongoose.Schema({
        required:true
    },
    base_rate:{
-       type:Integer,
+       type:Number,
        required:true
    }
     

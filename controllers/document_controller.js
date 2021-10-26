@@ -1,10 +1,11 @@
 const validator = require("../src/utils/validator");
 const jwt = require("../src/utils/jwt");
 const systemConfig = require("../src/configs/system");
-const userModel = require("../src/models/UserModel");
+const userModel = require("../src/models/Document");
 
 const is_docvalid = async function (req, res) {
   try {
+    console.log("hry");
     const requestBody = req.body;
     if (!validator.isValidRequestBody(requestBody)) {
       res.status(400).send({

@@ -5,12 +5,7 @@ const { systemConfig } = require("../configs");
 
 const documentSchema = new mongoose.Schema(
   {
-    documentId: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
-
+    
     adhaar: {
       type: String,
       required: true,
