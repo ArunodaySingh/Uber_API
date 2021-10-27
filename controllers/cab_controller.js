@@ -2,6 +2,7 @@ const validator = require("../src/utils/validator");
 const jwt = require("../src/utils/jwt");
 const systemConfig = require("../src/configs/system");
 const userModel = require("../src/models/CabModel");
+const Cab = require("../src/models/CabModel");
 
 const cab_controller = async function (req, res) {
   try {
@@ -15,7 +16,16 @@ const cab_controller = async function (req, res) {
     }
 
     //Extract prams
-    const { cabId, licence_plate, car_model_id, no_of_passengers,manufacture_year,owner_id,brand,base_rate } = requestBody;
+    const {
+      cabId,
+      licence_plate,
+      car_model_id,
+      no_of_passengers,
+      manufacture_year,
+      owner_id,
+      brand,
+      base_rate,
+    } = requestBody;
 
     // Validation starts
     if (!validator.isValid(cabId)) {
@@ -46,82 +56,103 @@ const cab_controller = async function (req, res) {
       return;
     }
 
-
     if (!validator.isValid(manufacture_year)) {
-        res
-          .status(400)
-          .send({ status: false, message: "manufacture_year  is required" });
-        return;
-      }
+      res
+        .status(400)
+        .send({ status: false, message: "manufacture_year  is required" });
+      return;
+    }
 
-    
-      if (!validator.isValid(owner_id)) {
-        res
-          .status(400)
-          .send({ status: false, message: "owner_id  is required" });
-        return;
-      }
+    if (!validator.isValid(owner_id)) {
+      res.status(400).send({ status: false, message: "owner_id  is required" });
+      return;
+    }
 
-     
     if (!validator.isValid(brand)) {
-        res
-          .status(400)
-          .send({ status: false, message: "brand information  is Necessary" });
-        return;
-      } 
+      res
+        .status(400)
+        .send({ status: false, message: "brand information  is Necessary" });
+      return;
+    }
 
     if (!validator.isValid(base_rate)) {
-        res
-          .status(400)
-          .send({ status: false, message: "base_rate  is Necessary" });
-        return;
-    }  
+      res
+        .status(400)
+        .send({ status: false, message: "base_rate  is Necessary" });
+      return;
+    }
 
-// Validation ends
-const cab_model = {cabId, licence_plate, car_model_id, no_of_passengers,manufacture_year,owner_id,brand,base_rate };
-const cab_data = await userModel.create(cab_model);
+    // Validation ends
+    const cab_model = {
+      cabId,
+      licence_plate,
+      car_model_id,
+      no_of_passengers,
+      manufacture_year,
+      owner_id,
+      brand,
+      base_rate,
+    };
+    const cab_data = await userModel.create(cab_model);
 
-res.status(201).send({ status: true, message: "Success", data: cab_data });
-
+    res.status(201).send({ status: true, message: "Success", data: cab_data });
   } catch (error) {
     res.status(500).send({ status: false, message: error.message });
   }
 };
 
-
 const getcabdetails = async function (req, res) {
-  try{
-    
-    let a=req.params.id;
-    userModel.findOne({_id:a},function(err,result){
-      if(!err){
+  try {
+    let a = req.params.id;
+    userModel.findOne({ _id: a }, function (err, result) {
+      if (!err) {
         res.send(result);
       }
-})
-  }
-  catch (error) {
+    });
+  } catch (error) {
     res.status(500).send({ status: false, message: error.message });
   }
- 
-}
+};
 
 const getallcabdetails = async function (req, res) {
-  try{ 
-   
-    let a=req.params.id;
-    userModel.find({},function(err,result){
-      if(!err){
+  try {
+    let a = req.params.id;
+    userModel.find({}, function (err, result) {
+      if (!err) {
         res.send(result);
       }
-})
-  }
-  catch (error) {
+    });
+  } catch (error) {
     res.status(500).send({ status: false, message: error.message });
   }
-}
+};
+
+const updateCabDetails = async (req, res) => {
+  try {
+    const cabId = req.params.id;
+    const requestBody = req.body;
+
+    if (!validator.isValidRequestBody(requestBody)) {
+      return res.status(400).send({
+        status: false,
+        message: "Invalid request parameters. Please provide valid cab details",
+      });
+    }
+
+    const newCabDetails = { ...requestBody };
+    const newCab = await Cab.findByIdAndUpdate(cabId, newCabDetails, {
+      new: true,
+    });
+
+    res.status(200).send({ status: true, message: "Success", data: newCab });
+  } catch (error) {
+    res.status(500).send({ status: false, message: error.message });
+  }
+};
 
 module.exports = {
   cab_controller,
   getcabdetails,
-  getallcabdetails
-}
+  getallcabdetails,
+  updateCabDetails,
+};

@@ -2,18 +2,17 @@ const validator = require("../src/utils/validator");
 const jwt = require("../src/utils/jwt");
 const systemConfig = require("../src/configs/system");
 const userModel = require("../src/models/riderModel");
+const Rider = require("../src/models/riderModel");
 
 const registerUser = async function (req, res) {
   try {
     const requestBody = req.body;
-    console.log("i triggerd "+requestBody.title);
+    console.log("i triggerd " + requestBody.title);
     if (!validator.isValidRequestBody(requestBody)) {
-      res
-        .status(400)
-        .send({
-          status: false,
-          message: "Invalid request parameters. Please provide user details",
-        });
+      res.status(400).send({
+        status: false,
+        message: "Invalid request parameters. Please provide user details",
+      });
       return;
     }
 
@@ -27,14 +26,12 @@ const registerUser = async function (req, res) {
     }
 
     if (!validator.isValidTitle(title)) {
-      res
-        .status(400)
-        .send({
-          status: false,
-          message: `Title should be among ${systemConfig.titleEnumArray.join(
-            ", "
-          )}`,
-        });
+      res.status(400).send({
+        status: false,
+        message: `Title should be among ${systemConfig.titleEnumArray.join(
+          ", "
+        )}`,
+      });
       return;
     }
 
@@ -51,12 +48,10 @@ const registerUser = async function (req, res) {
     const isPhoneAlreadyUsed = await userModel.findOne({ phone });
 
     if (isPhoneAlreadyUsed) {
-      res
-        .status(400)
-        .send({
-          status: false,
-          message: `${phone} phone is already registered`,
-        });
+      res.status(400).send({
+        status: false,
+        message: `${phone} phone is already registered`,
+      });
       return;
     }
 
@@ -66,24 +61,20 @@ const registerUser = async function (req, res) {
     }
 
     if (!validator.validateEmail(email)) {
-      res
-        .status(400)
-        .send({
-          status: false,
-          message: `Email should be a valid email address`,
-        });
+      res.status(400).send({
+        status: false,
+        message: `Email should be a valid email address`,
+      });
       return;
     }
 
     const isEmailAlreadyUsed = await userModel.findOne({ email });
 
     if (isEmailAlreadyUsed) {
-      res
-        .status(400)
-        .send({
-          status: false,
-          message: `${email} email address is already registered`,
-        });
+      res.status(400).send({
+        status: false,
+        message: `${email} email address is already registered`,
+      });
       return;
     }
 
@@ -93,22 +84,18 @@ const registerUser = async function (req, res) {
     }
 
     if (password.split("").length < 8) {
-      res
-        .status(400)
-        .send({
-          status: false,
-          message: `Password must be more than 8 digits and less than 15 digits`,
-        });
+      res.status(400).send({
+        status: false,
+        message: `Password must be more than 8 digits and less than 15 digits`,
+      });
       return;
     }
 
     if (password.split("").length > 15) {
-      res
-        .status(400)
-        .send({
-          status: false,
-          message: `Password must be more than 8 digits and less than 15 digits`,
-        });
+      res.status(400).send({
+        status: false,
+        message: `Password must be more than 8 digits and less than 15 digits`,
+      });
       return;
     }
 
@@ -127,12 +114,10 @@ const loginUser = async function (req, res) {
   try {
     const requestBody = req.body;
     if (!validator.isValidRequestBody(requestBody)) {
-      res
-        .status(400)
-        .send({
-          status: false,
-          message: "Invalid request parameters. Please provide login details",
-        });
+      res.status(400).send({
+        status: false,
+        message: "Invalid request parameters. Please provide login details",
+      });
       return;
     }
 
@@ -168,7 +153,32 @@ const loginUser = async function (req, res) {
   }
 };
 
+const updateRider = async (req, res) => {
+  try {
+    const riderId = req.params.id;
+    const requestBody = req.body;
+
+    if (!validator.isValidRequestBody(requestBody)) {
+      return res.status(400).send({
+        status: false,
+        message:
+          "Invalid request parameters. Please provide valid rider details",
+      });
+    }
+
+    const newRiderData = { ...requestBody };
+    const newRider = await Rider.findByIdAndUpdate(riderId, newRiderData, {
+      new: true,
+    });
+
+    res.status(200).send({ status: true, message: "Success", data: newRider });
+  } catch (error) {
+    res.status(500).send({ status: false, message: error.message });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
+  updateRider,
 };

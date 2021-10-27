@@ -1,10 +1,11 @@
 const validator = require("../src/utils/validator");
 const jwt = require("../src/utils/jwt");
 const systemConfig = require("../src/configs/system");
-const userModel = require("../src/models/UserModel");
+const userModel = require("../src/models/Payment");
 
 const Paymnet_Controller = async function (req, res) {
   try {
+    
     const requestBody = req.body;
     if (!validator.isValidRequestBody(requestBody)) {
       res.status(400).send({
@@ -49,7 +50,7 @@ const Paymnet_Controller = async function (req, res) {
 
 // Validation ends
 const payment_info = {paymentId, expectedPrice, finalPrice, paymentMode };
-const payment_data = await Paymnetmodel.create(payment_info);
+const payment_data = await userModel.create(payment_info);
 
 res.status(201).send({ status: true, message: "Success", data: payment_data });
 

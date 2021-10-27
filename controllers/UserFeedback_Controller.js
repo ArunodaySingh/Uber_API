@@ -1,7 +1,7 @@
 const validator = require("../src/utils/validator");
 const jwt = require("../src/utils/jwt");
 const systemConfig = require("../src/configs/system");
-const userModel = require("../src/models/UserModel");
+const userModel = require("../src/models/UserFeedback");
 
 const UserFeedback_Controller = async function (req, res) {
   try {
