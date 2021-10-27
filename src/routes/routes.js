@@ -17,63 +17,67 @@ const UserFeedbackController = require("../../controllers/UserFeedback_Controlle
 const VehicleController = require("../../controllers/Vehicle_Controller");
 const walletController = require("../../controllers/wallet_controller");
 
-
 const userAuth = require("../middlewares/userAuth");
 
 // rider routes
 router.post("/riderregister", riderController.registerUser); //donetesting
 router.post("/riderlogin", riderController.loginUser);
+router.post("/updaterider/:id", riderController.updateRider);
 
 // driver routes
 router.post("/driverregister", driverController.registerUser); //donetesting
 router.post("/driverlogin", driverController.loginUser);
+router.post("/updatedriver/:id", driverController.updateDriver);
 
 //booking routes
 router.post("/booking", bookingController.booking_controller);
-router.get("/booking/:id",bookingController.getbookingdetails);
+router.get("/booking/:id", bookingController.getbookingdetails);
 
 //cab routes
 router.post("/cab", cabController.cab_controller); //donetesting
-router.get("/cabs",cabController.getallcabdetails);
-router.get("/cab/:id",cabController.getcabdetails);
+router.get("/cabs", cabController.getallcabdetails);
+router.get("/cab/:id", cabController.getcabdetails);
+router.patch("/cab/:id", cabController.updateCabDetails);
 
 //document routes
 router.post("/document", documentController.is_docvalid); //donetesting
-router.get("/document/:id",documentController.getdocumentdetails);
+router.get("/document/:id", documentController.getdocumentdetails);
+router.patch("/document/:id", documentController.updateDocumentDetails);
 
 //driver_Feedback routes
 router.post("/driverfeedback", FeedbackController.DriverFeedback_Controller); //donetesting
-router.get("/driverfeedback/:id",FeedbackController.Feedback_Controller);
+router.get("/driverfeedback/:id", FeedbackController.Feedback_Controller);
 
 //driver_Status routes
-router.post("/driverstatus", driverStatusController);
+router.post("/driverstatus", driverStatusController.DriverStatus_Controller);
+router.patch("/driverstatus/:id", driverStatusController.updateDriverStatus);
 
 //payment routes
 router.post("/payment", paymentController.Paymnet_Controller);
-router.get("/payment/:id",paymentController.PaymentbyID_Controller);
+router.get("/payment/:id", paymentController.PaymentbyID_Controller);
 
 //ratings routes
 router.post("/rating", ratingsController.Rating_Controller);
-router.get("/rating/:id",ratingsController.RatingbyID_Controller);
+router.get("/rating/:id", ratingsController.RatingbyID_Controller);
 
 //offer routes
 router.post("/offer", offerController.Offer_Controller);
-router.get("/offer/:id",offerController.OfferbyID_Controller);
+router.get("/offer/:id", offerController.OfferbyID_Controller);
+router.patch("/offer/:id", offerController.offerUpdater);
 
 //user_Feedback routes
 router.post("/userfeedback", UserFeedbackController.UserFeedback_Controller);
-router.get("/alluserfeedback",UserFeedbackController.Feedback_Controller);
-
+router.get("/alluserfeedback", UserFeedbackController.Feedback_Controller);
 
 //vehicle routes
 router.post("/vehicle", VehicleController.Vehicle_Controller);
-router.get("/vehicles",VehicleController.getallvehicledetails);
-router.get("/vehicle/:id",VehicleController.getvehicledetails);
-
+router.get("/vehicles", VehicleController.getallvehicledetails);
+router.get("/vehicle/:id", VehicleController.getvehicledetails);
+router.patch("/vehicle/:id", VehicleController.updateVehicleDetails);
 
 //wallet routes
 router.post("/wallet", walletController.Wallet_Controller);
-router.get("/wallet",walletController.getwalletdetails);
-
+router.get("/wallet", walletController.getwalletdetails);
+router.patch("/wallet/:id", walletController.updateWalletDetails);
 
 module.exports = router;
