@@ -1,10 +1,11 @@
 const validator = require("../src/utils/validator");
 const jwt = require("../src/utils/jwt");
 const systemConfig = require("../src/configs/system");
-const userModel = require("../src/models/DriverModel");
+const userModel = require("../src/models/Booking");
 
 const booking_controller = async function (req, res) {
   try {
+    console.log("hey")
     const requestBody = req.body;
     if (!validator.isValidRequestBody(requestBody)) {
       res.status(400).send({
@@ -15,7 +16,7 @@ const booking_controller = async function (req, res) {
     }
 
     //Extract prams
-    const { bookingId, driverId, riderId, driverCurrentLocation,riderCurrentLocation,destinationLocationOfRiderr_id,riderLocationArrivedTime,bookingTime,startRideTime,endRideTime,waitingTime,sharedRideLink,paymentId,cancelled,driverFeedback,userFeedback,offer } = requestBody;
+    const { bookingId, driverId, riderId, driverCurrentLocation,riderCurrentLocation,destinationLocationOfRider,riderLocationArrivedTime,bookingTime,startRideTime,endRideTime,waitingTime,sharedRideLink,paymentId,cancelled,driverFeedback,userFeedback,offer } = requestBody;
 
     // Validation starts
     if (!validator.isValid(bookingId)) {
@@ -62,10 +63,10 @@ const booking_controller = async function (req, res) {
       }  
       
     
-      if (!validator.isValid(destinationLocationOfRiderr_id)) {
+      if (!validator.isValid(destinationLocationOfRider)) {
         res
           .status(400)
-          .send({ status: false, message: "destinationLocationOfRiderr_id  is required" });
+          .send({ status: false, message: "destinationLocationOfRiderr is required" });
         return;
       }
 
@@ -141,7 +142,7 @@ const booking_controller = async function (req, res) {
     } 
 
 // Validation ends
-const booking_cab = {bookingId, driverId, riderId, driverCurrentLocation,riderCurrentLocation,destinationLocationOfRiderr_id,riderLocationArrivedTime,bookingTime,startRideTime,endRideTime,waitingTime,sharedRideLink,paymentId,cancelled,driverFeedback,userFeedback,offer};
+const booking_cab = {bookingId, driverId, riderId, driverCurrentLocation,riderCurrentLocation,destinationLocationOfRider,riderLocationArrivedTime,bookingTime,startRideTime,endRideTime,waitingTime,sharedRideLink,paymentId,cancelled,driverFeedback,userFeedback,offer};
 const bookcab_data = await userModel.create(booking_cab);
 
 res.status(201).send({ status: true, message: "Success", data: bookcab_data });

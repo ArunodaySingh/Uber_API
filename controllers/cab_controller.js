@@ -107,7 +107,7 @@ const getcabdetails = async function (req, res) {
 
 const getallcabdetails = async function (req, res) {
   try{ 
-    console.log("hry");
+   
     let a=req.params.id;
     userModel.find({},function(err,result){
       if(!err){

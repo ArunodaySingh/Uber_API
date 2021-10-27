@@ -7,21 +7,21 @@ const documentSchema = new mongoose.Schema(
   {
     
     adhaar: {
-      type: String,
-      required: true,
+      type: Number,
+      required: "Adhaar No. is required",
     },
     PAN: {
       type: String,
-      required: true,
+      required: "PAN No. is required",
     },
 
     drivingLicence: {
       type: String,
-      required: true,
+      required: "DrivingLicence No. is required",
     },
     addressProof: {
       type: String,
-      required: true,
+      required: "drivingLicence is required",
     },
   },
   { timestamps: true }
